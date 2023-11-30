@@ -1,9 +1,14 @@
 package db_Util;
 
+import dto.Profile;
+import enums.ProfilStatus;
+import repository.ProfileRepasitory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 public class Database_Util {
     public static Connection getConnection() {
@@ -35,6 +40,7 @@ public class Database_Util {
             throw new RuntimeException(e);
         }
     }
+
     public void createTableCards() {
         try {
             Connection con = Database_Util.getConnection();
@@ -56,6 +62,20 @@ public class Database_Util {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void createAdmin() {
+        Profile profileAdmin = new Profile();
+        profileAdmin.setName("Murod");
+        profileAdmin.setSurname("Dadaboev");
+        profileAdmin.setPhone("901584040");
+        profileAdmin.setPassword("1111");
+        profileAdmin.setCreated_date(LocalDateTime.now());
+        profileAdmin.setStatus(ProfilStatus.ACTIVE);
+        profileAdmin.setRole(ProfilStatus.ADMIN);
+
+        ProfileRepasitory profileRepasitory = new ProfileRepasitory();
+        profileRepasitory.create(profileAdmin);
     }
 
 

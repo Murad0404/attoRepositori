@@ -27,7 +27,7 @@ public class UserController {
                     cardServicer.cardList();
                     break;
                 case 3:
-
+                    cardChangeStatus();
                     break;
                 case 4:
 
@@ -77,5 +77,12 @@ public class UserController {
 
         CardServicer cardServicer = new CardServicer();
         cardServicer.addCard(card);
+    }
+    public void cardChangeStatus(){
+        System.out.println("karta raqam kiriting : ");
+        String numberCard = scanner.next();
+        CardServicer cardServicer = new CardServicer();
+        cardServicer.searchCardStatusChange(numberCard);
+
     }
 }

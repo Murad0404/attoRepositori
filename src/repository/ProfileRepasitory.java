@@ -48,7 +48,6 @@ public class ProfileRepasitory {
                 dto.setCreated_date(resultSet.getTimestamp("created_date").toLocalDateTime());
                 dto.setStatus(ProfilStatus.valueOf(resultSet.getString("status")));
                 dto.setRole(ProfilStatus.valueOf(resultSet.getString("role")));
-
                 dtoList.add(dto);
             }
             con.close();

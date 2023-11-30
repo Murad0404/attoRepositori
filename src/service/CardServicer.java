@@ -1,8 +1,11 @@
 package service;
 
+import controller.UserController;
 import dto.Card;
+import dto.Profile;
 import enums.CardStatus;
 import repository.CardRepository;
+import repository.ProfileRepasitory;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -23,6 +26,17 @@ public class CardServicer {
         List<Card> dtoList = new LinkedList<>(cardRepository.getAll(ProfileService.profileGolobal));
         for (int i = 0; i < dtoList.size(); i++) {
             System.out.println(dtoList.get(i));
+        }
+    }
+
+    public void searchCardStatusChange(String number){
+        CardRepository cardRepository = new CardRepository();
+        List<Card> dtoList = new LinkedList<>(cardRepository.search(number));
+        Card card = dtoList.get(0);
+        if (card.getStatus().equals(CardStatus.ACTIVE)){
+            cardRepository.cardChangeStatus_BLOCE(card.getId());
+        }else {
+            cardRepository.cardChangeStatus_ACTIVE(card.getId());
         }
     }
 }

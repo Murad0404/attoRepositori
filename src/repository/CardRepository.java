@@ -92,4 +92,31 @@ public class CardRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Card> search(String numbers) {
+        List<Card> dtoList = new LinkedList<>();
+        try {
+            Connection con = Database_Util.getConnection();
+            String sql = "select * from cards where lower(numbers) = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1,numbers);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Card card = new Card();
+                card.setId(resultSet.getInt("id"));
+                card.setNumber(resultSet.getString("numbers"));
+                card.setExp_date(resultSet.getString("exp_date"));
+                card.setBalance(resultSet.getDouble("balance"));
+                card.setStatus(CardStatus.valueOf(resultSet.getString("status")));
+                card.setPhone(resultSet.getString("phone"));
+                card.setCreated_date(resultSet.getTimestamp("created_date").toLocalDateTime());
+                dtoList.add(card);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return dtoList;
+    }
 }
