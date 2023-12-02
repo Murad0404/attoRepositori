@@ -1,17 +1,14 @@
 package service;
 
-import controller.UserController;
 import dto.Card;
-import dto.Profile;
 import enums.CardStatus;
 import repository.CardRepository;
-import repository.ProfileRepasitory;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CardServicer {
+public class CardService {
     public void addCard(Card card) {
         card.setCreated_date(LocalDateTime.now());
         card.setStatus(CardStatus.ACTIVE);
