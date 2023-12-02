@@ -1,5 +1,5 @@
 package enums;
 
 public enum CardStatus {
-    ACTIVE, BLOCE
+    ACTIVE, NOT_ACTIVE, BLOCE
 }

@@ -1,2 +1,4 @@
-package repository;public class TransactionRepository {
+package repository;
+
+public class TransactionRepository {
 }

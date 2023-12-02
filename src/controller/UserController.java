@@ -1,10 +1,9 @@
 package controller;
 
 import dto.Card;
-import dto.Profile;
-import enums.CardStatus;
+import repository.CardRepository;
 import repository.ProfileRepasitory;
-import service.CardServicer;
+import service.CardService;
 import service.ProfileService;
 
 import java.util.Scanner;
@@ -23,16 +22,15 @@ public class UserController {
                     registrationCard();
                     break;
                 case 2:
-                    CardServicer cardServicer = new CardServicer();
+                    CardService cardServicer = new CardService();
                     cardServicer.cardList();
                     break;
                 case 3:
                     cardChangeStatus();
                     break;
                 case 4:
-
+                    deleteCard();
                     break;
-
                 case 0:
                     ProfileRepasitory profileRepasitory =new ProfileRepasitory();
                     profileRepasitory.loginUpdateStatusNOT_AKTIVE(ProfileService.profileGolobal);
@@ -64,25 +62,27 @@ public class UserController {
         String number = scanner.next();
         System.out.println("Enter exp_date");
         String exp_date = scanner.next();
-        System.out.println("Enter balance");
-        double balance = scanner.nextDouble();
-        System.out.println("Enter phone");
-        String phone = scanner.next();
 
         Card card = new Card();
         card.setNumber(number);
         card.setExp_date(exp_date);
-        card.setBalance(balance);
-        card.setPhone(phone);
 
-        CardServicer cardServicer = new CardServicer();
-        cardServicer.addCard(card);
+        CardService cardServicer = new CardService();
+        cardServicer.registrationCardUser(card);
     }
     public void cardChangeStatus(){
-        System.out.println("karta raqam kiriting : ");
+        System.out.println("card raqam kiriting : ");
         String numberCard = scanner.next();
-        CardServicer cardServicer = new CardServicer();
+        CardService cardServicer = new CardService();
         cardServicer.searchCardStatusChange(numberCard);
+
+    }
+
+    public void deleteCard(){
+        System.out.println("card ni o'chirish: ");
+        String numberCard = scanner.next();
+        CardRepository cardRepository = new CardRepository();
+        cardRepository.delete(numberCard);
 
     }
 }

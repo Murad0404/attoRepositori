@@ -14,7 +14,7 @@ public class MainController {
         Database_Util databaseUtil = new Database_Util();
         databaseUtil.createTable();
         databaseUtil.createTableCards();
-        databaseUtil.createAdmin();
+        //databaseUtil.createAdmin();
         boolean t = true;
         while (t) {
             showMenu();

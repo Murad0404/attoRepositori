@@ -1,2 +1,4 @@
-package repository;public class TerminalRepository {
+package repository;
+
+public class TerminalRepository {
 }

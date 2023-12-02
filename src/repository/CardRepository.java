@@ -2,9 +2,7 @@ package repository;
 
 import db_Util.Database_Util;
 import dto.Card;
-import dto.Profile;
 import enums.CardStatus;
-import enums.ProfilStatus;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -34,12 +32,39 @@ public class CardRepository {
 
     }
 
-    public List<Card> getAll(Integer userId) {
+    public List<Card> getAllID(Integer userId) {
         List<Card> dtoList = new LinkedList<>();
         try {
             Connection con = Database_Util.getConnection();
             Statement statement = con.createStatement();
             String sql = "select * from cards where profile_id = "+userId;
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                Card dto = new Card();
+                dto.setId(resultSet.getInt("id"));
+                dto.setNumber(resultSet.getString("numbers"));
+                dto.setExp_date(resultSet.getString("exp_date"));
+                dto.setBalance(resultSet.getDouble("balance"));
+                dto.setStatus(CardStatus.valueOf(resultSet.getString("status")));
+                dto.setPhone(resultSet.getString("phone"));
+                dto.setCreated_date(resultSet.getTimestamp("created_date").toLocalDateTime());
+                dto.setProfile_id(resultSet.getInt("profile_id"));
+                dtoList.add(dto);
+            }
+            con.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return dtoList;
+    }
+
+    public List<Card> getAll() {
+        List<Card> dtoList = new LinkedList<>();
+        try {
+            Connection con = Database_Util.getConnection();
+            Statement statement = con.createStatement();
+            String sql = "select * from cards";
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
@@ -118,5 +143,18 @@ public class CardRepository {
             throw new RuntimeException(e);
         }
         return dtoList;
+    }
+
+    public void delete(String numbers) {
+        try {
+            Connection con = Database_Util.getConnection();
+            String sql = "delete from cards where numbers = "+"'"+numbers+"'";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.executeQuery(sql);
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

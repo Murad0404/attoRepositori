@@ -1,2 +1,4 @@
-package repository;public class AdminRepository {
+package repository;
+
+public class AdminRepository {
 }

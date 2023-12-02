@@ -1,2 +1,5 @@
-package enums;public class TransactionType {
+package enums;
+
+public enum TransactionType {
+    Payment, ReFill;
 }

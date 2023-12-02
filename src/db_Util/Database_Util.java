@@ -64,7 +64,7 @@ public class Database_Util {
         }
     }
 
-    public void createAdmin() {
+   /** public void createAdmin() {
         Profile profileAdmin = new Profile();
         profileAdmin.setName("Murod");
         profileAdmin.setSurname("Dadaboev");
@@ -76,7 +76,7 @@ public class Database_Util {
 
         ProfileRepasitory profileRepasitory = new ProfileRepasitory();
         profileRepasitory.create(profileAdmin);
-    }
+    }*/
 
 
 }

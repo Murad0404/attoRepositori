@@ -1,2 +1,4 @@
-package service;public class TerminalService {
+package service;
+
+public class TerminalService {
 }

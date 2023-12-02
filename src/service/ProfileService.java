@@ -1,5 +1,6 @@
 package service;
 
+import controller.AdminController;
 import controller.UserController;
 import dto.Profile;
 import enums.ProfilStatus;
@@ -26,6 +27,13 @@ public class ProfileService {
         List<Profile> dtoList = new LinkedList<>(profileRepasitory.search(phone));
         Profile profile = dtoList.get(0);
         profileGolobal = ((profile.getId()));
+
+        if (profile.getRole().equals(ProfilStatus.ADMIN)){
+            if (profile.getPassword().equals(password)){
+                AdminController adminController = new AdminController();
+                adminController.start();
+            }
+        } else {
             if (profile.getPassword().equals(password)){
                 profileRepasitory.loginUpdateStatusACTIVE(profile.getId());
                 UserController userController = new UserController();
@@ -33,6 +41,7 @@ public class ProfileService {
             }else {
                 System.out.println("bunday user topilmadi !");
             }
+        }
     }
 
 }
